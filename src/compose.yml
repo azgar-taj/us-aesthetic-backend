@@ -1,0 +1,10 @@
+services:
+  us-backend:
+    build:
+      tags:
+        - us-aesthetic-backend-storyservice
+        - asia-south1-docker.pkg.dev/silicon-outcome-427512-i5/us-image-registry/us-aesthetic-backend-storyservice
+      context: ./us-storyservice
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"

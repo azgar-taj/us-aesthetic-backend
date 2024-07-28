@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: us-aesthetic-backend-storyservice-app
+spec:
+  selector:
+    app: us-aesthetic-backend-storyservice
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80

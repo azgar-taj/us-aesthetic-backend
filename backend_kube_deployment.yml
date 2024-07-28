@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: us-aesthetic-backend-deployment
+  labels:
+    app: us-aesthetic-backend-storyservice
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: us-aesthetic-backend-storyservice
+  template:
+    metadata:
+      labels:
+        app: us-aesthetic-backend-storyservice
+    spec:
+      containers:
+      - name: us-aesthetic-backend-storyservice-container
+        image: asia-south1-docker.pkg.dev/silicon-outcome-427512-i5/us-image-registry/us-aesthetic-backend-storyservice
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi"
+        env:
+        - name: PORT
+          value: "80"
+        - name: MONGO_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-credentials
+              key: mongo-username
+        - name: MONGO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-credentials
+              key: mongo-password
+        - name: MONGO_CLUSTER
+          valueFrom:
+            secretKeyRef:
+              name: mongo-credentials
+              key: mongo-cluster
